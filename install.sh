@@ -3,31 +3,31 @@
 makeXMonad() {
 	mkdir -p ~/.xmonad
 	mv ~/.xmonad/xmonad.hs ./backup/ &>/dev/null
-	ln ./xmonad.hs ~/.xmonad/xmonad.hs
+	ln files/xmonad.hs ~/.xmonad/xmonad.hs
 	xmonad --recompile &>/dev/null
 }
 
 makeKitty() {
 	mkdir -p ~/.config/kitty
 	mv ~/.config/kitty/kitty.conf ./backup/ &>/dev/null
-	ln ./kitty.conf ~/.config/kitty/kitty.conf
+	ln files/kitty.conf ~/.config/kitty/kitty.conf
 }
 
 makeNeoVim() {
 	mkdir -p ~/.config/nvim
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &>/dev/null
 	mv ~/.config/nvim/init.vim ./backup/ &>/dev/null
-	ln ./init.vim ~/.config/nvim/init.vim
+	ln files/init.vim ~/.config/nvim/init.vim
 }
 
 makeZSH() {
 	mv ~/.zshrc ./backup/ &>/dev/null
-	ln ./.zshrc ~/.zshrc
+	ln files/.zshrc ~/.zshrc
 }
 
 makePicom() {
 	mv ~/.config/picom.conf ./backup/ &>/dev/null
-	ln ./picom.conf ~/.config/picom.conf
+	ln files/picom.conf ~/.config/picom.conf
 }
 
 getInput() {
@@ -65,7 +65,7 @@ getInput() {
 }
 
 main() {
-	if cat ./kitty.conf &>/dev/null
+	if cat files/kitty.conf &>/dev/null
 	then
 		getInput
 		echo "Dotfiles succesfully linked"
