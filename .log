@@ -1,10 +1,0 @@
-Begining
-XMonad will use ghc to recompile, because neither "/root/.xmonad/build" nor "/root/.xmonad/stack.yaml" exists.
-XMonad recompiling (forced).
-XMonad recompilation process exited with success!
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 83129  100 83129    0     0  1016k      0 --:--:-- --:--:-- --:--:-- 1027k
-Cloning into '/root/.oh-my-zsh/custom/plugins/fast-syntax-highlighting'...
-Cloning into '/root/.oh-my-zsh/custom/plugins/z.lua'...
-Cloning into '/plugins/you-should-use'...
