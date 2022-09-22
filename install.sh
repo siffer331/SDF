@@ -2,8 +2,11 @@
 
 makeXMonad() {
 	rm ./backup/xmonad.hs &>/dev/null
-	mkdir -p ~/.xmonad
+	rm ./backup/haskell_20.xpm &>/dev/null
+	mkdir -p ~/.xmonad/xpm
 	mv ~/.xmonad/xmonad.hs ./backup/ &>/dev/null
+	mv ~/.xmonad/haskell_20.xpm ./backup/ &>/dev/null
+	ln files/haskell_20.xpm ~/.xmonad/xpm/haskell_20.xpm >> .log
 	ln files/xmonad.hs ~/.xmonad/xmonad.hs >> .log
 	xmonad --recompile &>> .log
 }
@@ -39,42 +42,45 @@ makeZSH() {
 	fi
 }
 
+makeRofi() {
+	rm ./backup/backup/config.rasi &>/dev/null
+	mkdir -p ~/.config/rofi
+	mv ~/.config/rofi/config.rasi &>/dev/null
+	ln files/config.rasi ~/.config/rofi/config.rasi >> .log
+}
+
 makePicom() {
 	rm ./backup/picom.conf &>/dev/null
 	mv ~/.config/picom.conf ./backup/ &>/dev/null
 	ln files/picom.conf ~/.config/picom.conf >> .log
 }
 
+makeZathura() {
+	rm ./backup/backup/zathurarc &>/dev/null
+	mkdir -p ~/.config/zathura
+	mv ~/.config/zathura/zathurarc &>/dev/null
+	ln files/zathurarc ~/.config/zathura/zathurarc >> .log
+}
+
 getInput() {
 	echo "Begining" > .log
 	mkdir -p backup
 	files="$(dialog --checklist 'Dotfiles' 15 10 10 \
-		'XMonad' 1 'on' \
-		'Kitty'  2 'on' \
-		'NeoVim' 3 'on' \
-		'Zsh'    4 'on' \
-		'Picom'  5 'on' \
+		'XMonad'  1 'on' \
+		'Kitty'   2 'on' \
+		'NeoVim'  3 'on' \
+		'Zsh'     4 'on' \
+		'Picom'   5 'on' \
+		'Rofi'    6 'on' \
+		'Zathura' 7 'on' \
 		3>&1 1>&2 2>&3 3>&1 )"
-	if echo $files | grep XMonad &>/dev/null
-	then
-		makeXMonad
-	fi
-	if echo $files | grep Kitty &>/dev/null
-	then
-		makeKitty
-	fi
-	if echo $files | grep NeoVim &>/dev/null
-	then
-		makeNeoVim
-	fi
-	if echo $files | grep Zsh&>/dev/null
-	then
-		makeZSH
-	fi
-	if echo $files | grep Picom &>/dev/null
-	then
-		makePicom
-	fi
+	echo $files | grep -q XMonad || makeXMonad
+	echo $files | grep -q Kitty || makeKitty
+	echo $files | grep -q NeoVim || makeNeoVim
+	echo $files | grep -q Zsh || makeZSH
+	echo $files | grep -q Picom || makePicom
+	echo $files | grep -q Rofi || makeRofi
+	echo $files | grep -q Zathura || makeZathura
 	clear
 }
 

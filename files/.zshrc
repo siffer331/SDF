@@ -5,7 +5,6 @@ export LANG=en_US.UTF-8
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/var/lib/snapd/snap/bin:/home/siffer/.local/bin:$PATH
 
-source /home/siffer/Documents/Sys/Live.sh
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -57,6 +56,11 @@ unsetopt beep
 bindkey -v
 
 
+# My stuff
+
+source /home/siffer/.dotfiles/files/scripts/live.sh
+export PATH=/home/siffer/.dotfiles/files/bin:$PATH
+
 #Aliases
 
 alias vim="nvim"
@@ -70,13 +74,15 @@ alias s.zshrc="source ~/.zshrc"
 alias dk="setxkbmap dk"
 alias p3="python3"
 alias copy="xclip -selection clipboard"
+alias x="startx"
+alias clearC="clear && colorscript -r"
+alias shut="shutdown 0"
 #git
 alias ginit="git init"
 alias gitcm="git commit -m"
 alias gitps="git push -u origin"
 alias gitpl="git pull origin"
 alias gitad="git add -A"
-alias clearC="clear && colorscript -r"
 
 
 colorscript -r

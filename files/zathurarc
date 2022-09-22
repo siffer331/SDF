@@ -1,0 +1,41 @@
+
+set zoom-center true
+
+set selection-clipboard clipboard
+
+#Colors from Søren Skeie
+set recolor true
+set opacity 0.5
+
+set default-bg rgba(29,31,33,0.9)
+set recolor-lightcolor rgba(0,0,0,0)
+#set default-bg                  "#282936"
+set default-fg                  rgba(58,60,78,1) #"#3a3c4e" #7
+
+#set recolor-lightcolor          "#282936"
+#set recolor-darkcolor           "#f1f2f8"
+
+set statusbar-fg                rgba(98,214,232,1) #"#62d6e8" #1
+set statusbar-bg                rgba(77,79,104,1) #"#4d4f68" #2
+
+set inputbar-bg                 rgba(40,41,54,1) #"#282936" #3
+set inputbar-fg                 rgba(247,247,251,1) #"#f7f7fb" #4
+
+set notification-bg             rgba(40,41,54,1) #"#282936" #3
+set notification-fg             rgba(247,247,251,1) #"#f7f7fb" #4
+
+set notification-error-bg       rgba(40,41,54,1) #"#282936" #3
+set notification-error-fg       rgba(234,81,178,1) #"#ea51b2" #5
+
+set notification-warning-bg     rgba(40,41,54,1) #"#282936" #3
+set notification-warning-fg     rgba(234,81,178,1) #"#ea51b2" #5
+
+set highlight-color             rgba(0,247,105,1) #"#00f769" #6
+set highlight-active-color      rgba(98,214,232,1) #"#62d6e8" #1
+
+set completion-bg               rgba(58,60,78,1) #"#3a3c4e" #7
+set completion-fg               rgba(98,214,232,1) #"#62d6e8" #1
+
+set completion-highlight-fg     rgba(247,247,251,1) #"#f7f7fb" #4
+set completion-highlight-bg     rgba(98,214,232,1) #"#62d6e8" #1
+

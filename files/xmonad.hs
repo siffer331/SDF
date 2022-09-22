@@ -19,7 +19,7 @@ import XMonad.Util.NamedScratchpad
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks)
+import XMonad.Hooks.ManageDocks
 
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.Spiral
@@ -44,7 +44,7 @@ myTerminal :: String
 myTerminal = "kitty"
 
 myBrowser :: String
-myBrowser = "firefox"
+myBrowser = "brave"
 
 myEditor :: String
 myEditor = "nvim"
@@ -87,7 +87,7 @@ myLayouts =
     spirals |||
     noBorders Full
 
-myLayoutHook = gaps [(U, 20)] $ myLayouts
+myLayoutHook = avoidStruts myLayouts
 
 -- Startup --
 
@@ -95,7 +95,6 @@ myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "picom -f"
     spawnOnce "nitrogen --restore"
-    spawnOnce "volumeicon"
 
 -- Scratchpads --
 
@@ -122,8 +121,13 @@ myKeys = [
     ("M-C-r", spawn "xmonad --recompile"),
     ("M-S-r", spawn "xmonad --restart"),
     ("M-S-q", io exitSuccess),
-    ("M-<Return>", spawn "dmenu_run -i -p \"Run: \""),
+    ("M-<Return>", spawn "rofi -show drun"),
+    ("M-e", spawn "rofi -show emoji"),
+    ("M-c", spawn "rofi -show calc -no-show-match -no-sort"),
+	("M-w", spawn "rofi-wifi-menu"),
+	("M-s", spawn "rofi-power-menu"),
     ("M-S-<Return>", spawn myTerminal),
+	("M-r", spawn $ myTerminal ++ " ranger"),
     ("M-b", spawn myBrowser),
     ("M-d", spawn "discord"),
     ("<Print>", spawn "maim -s | xclip -selection clipboard -t image/png"),
@@ -140,6 +144,7 @@ myKeys = [
     ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute"),
     ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute"),
     ("M-n", refresh),
+    ("M-S-b", sendMessage ToggleStruts),
     ("M-j", windows W.focusDown),
     ("M-k", windows W.focusUp),
     ("M-S-j", windows W.swapDown),
@@ -157,7 +162,7 @@ myKeys = [
 -- XMobar --
 
 spawnXMobar :: MonadIO m => Int -> m (Int, Handle)
-spawnXMobar i = (spawnPipe $ "xmobar" ++ " -x " ++ show i ++ " $HOME/.config/xmobarrc") >>= (\handle -> return (i, handle))
+spawnXMobar i = (spawnPipe $ "xmobar" ++ " -x " ++ show i ++ " $HOME/.dotfiles/files/xmobarrc") >>= (\handle -> return (i, handle))
   --xmproc1 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobarrc")
 
 spawnXMobars :: MonadIO m => Int -> m [(Int, Handle)]
@@ -214,13 +219,11 @@ myLogHook xmobarPipes = do
     --mapM_ convertPipe xmobarPipes
     mapM_ (myLogHookForPipe currentWindowSet) xmobarPipes
 
+myManageHook = namedScratchpadManageHook myScratchpads
+
 -- Main --
 
-main :: IO ()
-main = do
-  n <- countScreens
-  xmobarPipes <- spawnXMobars n
-  xmonad $ ewmh def
+myConfig xmobarPipes = docks $ ewmh def
     {
         terminal            = myTerminal,
         workspaces          = myWorkspaces,
@@ -232,8 +235,14 @@ main = do
         focusedBorderColor  = myFocusColor,
         keys                = defaultKeys,
         logHook             = myLogHook xmobarPipes,
-        manageHook = namedScratchpadManageHook myScratchpads
+        manageHook          = myManageHook
     } `additionalKeysP` myKeys
+
+main :: IO ()
+main = do
+  n <- countScreens
+  xmobarPipes <- spawnXMobars n
+  xmonad $ myConfig xmobarPipes
 
 
 

@@ -1,0 +1,82 @@
+configuration {
+	modi: "window,run,drun,emoji,calc";
+	display-drun: "Applications:";
+	display-window: "Windows:";
+	drun-display-format: "{icon} {name}";
+	show-icons: true;
+	icon-theme: "Papirus";
+	font: "mono 20";
+	timeout {
+		action: "kb-cancel";
+		delay:  0;
+	}
+}
+@theme "/dev/null"
+
+* {
+	bg: #08091099;
+	bg-alt: #10121E;
+
+	fg: #C58A42;
+	fg-alt: #817A71;
+
+	background-color: @bg;
+
+	border: 0;
+	margin: 0;
+	padding: 0;
+	spacing: 0;
+}
+
+window {
+	width: 50%;
+}
+
+element {
+	padding: 8 0;
+	text-color: @fg-alt;
+}
+
+element selected {
+	text-color: @fg;
+}
+
+element-text {
+	background-color: #00000000;
+	text-color: inherit;
+	vertical-align: 0.5;
+}
+
+element-icon {
+	size: 30;
+}
+
+entry {
+	background-color: #00000000;
+	padding: 12;
+	text-color: @fg;
+}
+
+inputbar {
+	background-color: @bg-alt;
+	children: [prompt, entry];
+}
+
+listview {
+	padding: 8 12;
+	background-color: #00000000;
+	columns: 2;
+	lines: 12;
+}
+
+mainbox {
+	background-color: #00000000;
+	children: [inputbar, listview];
+}
+
+prompt {
+  background-color: #00000000;
+  enabled: true;
+  padding: 12 0 0 12;
+  text-color: @fg;
+}
